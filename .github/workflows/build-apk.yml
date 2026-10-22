@@ -43,6 +43,8 @@ jobs:
         run: npm run typecheck
 
       - name: Check EAS configuration
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: npx eas-cli@latest config --platform android --profile preview
 
       - name: Build APK with EAS
@@ -54,6 +56,21 @@ jobs:
             exit 1
           fi
           npx eas-cli@latest build --platform android --profile preview --non-interactive --wait
+
+      - name: Download generated APK
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          mkdir -p artifacts
+          npx eas-cli@latest build:download --platform android --latest --path artifacts/chat-preview.apk
+
+      - name: Upload APK as GitHub artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chat-android-apk
+          path: artifacts/chat-preview.apk
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Show EAS build link
         if: always()
