@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Chat",
+    "slug": "chat-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "chatapp",
+    "android": {
+      "package": "com.chat.mobile",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#11131D"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.chat.mobile"
+    },
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
+    }
+  }
+}
