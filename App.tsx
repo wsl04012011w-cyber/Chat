@@ -8,12 +8,12 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import type { Session } from '@supabase/supabase-js'
 import { isSupabaseConfigured, supabase } from './lib/supabase'
 
@@ -636,7 +636,7 @@ export default function App() {
   if (isCheckingSession) {
     return (
       <SafeAreaView style={styles.loadingScreen}>
-        <StatusBar barStyle="light-content" backgroundColor={palette.bg} />
+        <StatusBar style="light" />
         <View style={styles.brandMarkLarge}><Text style={styles.brandGlyph}>c</Text></View>
         <Text style={styles.brandTitle}>Chat</Text>
         <ActivityIndicator color={palette.accent} style={{ marginTop: 24 }} />
@@ -647,7 +647,7 @@ export default function App() {
   if (isSupabaseConfigured && !session) {
     return (
       <SafeAreaView style={styles.root}>
-        <StatusBar barStyle="light-content" backgroundColor={palette.bg} />
+        <StatusBar style="light" />
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView contentContainerStyle={styles.authScroll} keyboardShouldPersistTaps="handled">
             <View style={styles.authBrand}>
@@ -737,7 +737,7 @@ export default function App() {
     const otherName = currentChat.title
     return (
       <SafeAreaView style={styles.root}>
-        <StatusBar barStyle="light-content" backgroundColor={palette.bg} />
+        <StatusBar style="light" />
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <View style={styles.chatHeader}>
             <Pressable onPress={() => setCurrentChat(null)} style={styles.backButton} accessibilityLabel="Voltar às conversas">
@@ -826,7 +826,7 @@ export default function App() {
   if (activeTab === 'find') {
     return (
       <SafeAreaView style={styles.root}>
-        <StatusBar barStyle="light-content" backgroundColor={palette.bg} />
+        <StatusBar style="light" />
         <ScrollView contentContainerStyle={styles.pageScroll} keyboardShouldPersistTaps="handled">
           <View style={styles.pageHeader}>
             <Text style={styles.eyebrow}>CONECTE-SE</Text>
@@ -887,7 +887,7 @@ export default function App() {
   if (activeTab === 'profile') {
     return (
       <SafeAreaView style={styles.root}>
-        <StatusBar barStyle="light-content" backgroundColor={palette.bg} />
+        <StatusBar style="light" />
         <ScrollView contentContainerStyle={styles.pageScroll}>
           <View style={styles.pageHeader}>
             <Text style={styles.eyebrow}>SUA CONTA</Text>
@@ -931,7 +931,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.root}>
-      <StatusBar barStyle="light-content" backgroundColor={palette.bg} />
+      <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.homeScroll} keyboardShouldPersistTaps="handled">
         <View style={styles.homeTop}>
           <View style={styles.miniBrand}>
