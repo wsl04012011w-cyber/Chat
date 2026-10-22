@@ -6,13 +6,13 @@ Aplicativo de conversas para Android, feito em React Native + Expo SDK 58. A ide
 
 - Tela inicial com lista e busca de conversas.
 - Tela de conversa com envio de mensagens.
-- Cadastro e login por e-mail quando o Supabase estiver configurado.
+- Cadastro e login por e-mail conectado ao Supabase.
 - Busca de pessoas por nome de usuário e início de conversa direta.
-- Assinatura do Supabase Realtime para receber novas mensagens.
-- Modo demonstração local, para explorar a interface sem configurar credenciais.
-- Migração SQL com perfis, conversas, participantes, mensagens e políticas de Row Level Security (RLS).
+- Recebimento de mensagens por Supabase Realtime.
+- Modo demonstração local disponível quando as variáveis do Supabase estiverem vazias.
+- Migrações SQL com perfis, conversas, participantes, mensagens, índices e políticas de Row Level Security (RLS).
 
-**Importante:** no modo de demonstração, mensagens não são enviadas pela internet nem compartilhadas com amigos. O modo online exige um projeto Supabase configurado.
+**Estado do backend:** a migração já foi aplicada ao projeto Supabase `Chat`, as quatro tabelas foram verificadas, RLS está habilitado em todas elas e o verificador de segurança não reportou alertas. O app usa a chave pública Publishable; não use chaves Secret ou service_role no cliente.
 
 ## Requisitos
 
@@ -23,28 +23,29 @@ Aplicativo de conversas para Android, feito em React Native + Expo SDK 58. A ide
 ## Rodar localmente
 
 1. Instale as dependências: `npm install`
-2. Copie o arquivo de exemplo para `.env`: `cp .env.example .env`
-3. Para experimentar apenas a interface, deixe os valores de Supabase como placeholders. O app abrirá em modo demonstração.
+2. Copie o arquivo de configuração para `.env`: `cp .env.example .env`
+3. O arquivo de exemplo já aponta para o projeto Supabase de desenvolvimento Chat. Você também pode iniciar sem `.env`: os valores públicos padrão estão configurados no cliente.
 4. Valide a compatibilidade das dependências Expo: `npx expo install --check`
 5. Inicie o Expo: `npx expo start`
 
-Escaneie o QR code com o Expo Go ou use o emulador Android.
+Escaneie o QR code com o Expo Go ou use o emulador Android. Para testar as conversas online, crie duas contas e entre com cada uma em dispositivos ou sessões diferentes.
+
+### Usar outro projeto ou ativar a demonstração local
+
+Defina `EXPO_PUBLIC_SUPABASE_URL` e `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` no seu `.env` para substituir o projeto padrão. Para trabalhar sem backend, deixe as duas variáveis vazias no `.env`; assim, a interface abre com dados de demonstração e as mensagens ficam somente no dispositivo.
 
 ## Conectar ao Supabase
 
-1. Crie um projeto no painel do Supabase.
-2. Abra **SQL Editor** e execute o conteúdo de `supabase/migrations/202610220001_chat_schema.sql`.
-3. Em **Project Connect / API Keys**, copie a URL do projeto e a chave **Publishable**.
-4. Preencha o arquivo local `.env`:
+O projeto Supabase de desenvolvimento está em `https://zwwgufeavnxclwhkvclo.supabase.co`.
 
-   ```dotenv
-   EXPO_PUBLIC_SUPABASE_URL=https://SEU_PROJECT_REF.supabase.co
-   EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_SUA_CHAVE
-   ```
+As migrações usadas são:
 
-5. Reinicie o Expo para carregar as variáveis e teste o cadastro com dois usuários diferentes.
+- `supabase/migrations/202610220001_chat_schema.sql`
+- `supabase/migrations/202610220002_chat_query_indexes.sql`
 
-Use somente a chave Publishable no app. **Nunca coloque chaves Secret ou service_role em código mobile nem as envie para o GitHub.** As tabelas têm RLS habilitado, mas as políticas precisam ser verificadas no projeto real antes de produção.
+Elas já foram aplicadas no projeto conectado. Para instalar em um novo projeto, abra **SQL Editor** e execute os arquivos em ordem. Em **Project Connect / API Keys**, obtenha a URL e a chave **Publishable** desse projeto.
+
+**Segurança:** a chave Publishable foi feita para uso no cliente e não substitui autorização. O acesso é controlado por RLS e pelas políticas do banco. Nunca coloque chaves **Secret** ou **service_role** no código mobile ou no GitHub.
 
 ## Gerar APK para Android
 
@@ -63,11 +64,14 @@ O perfil `preview` em `eas.json` está configurado para produzir um APK de distr
 ## Estrutura principal
 
 - `App.tsx`: telas, autenticação e fluxo de conversa.
-- `lib/supabase.ts`: criação do cliente Supabase para o app.
-- `supabase/migrations/`: estrutura do banco de dados e políticas RLS.
-- `.env.example`: nomes das variáveis necessárias, sem segredos.
+- `lib/supabase.ts`: cliente Supabase para o app.
+- `supabase/migrations/`: estrutura do banco, índices e políticas RLS.
+- `.env.example`: configuração do projeto de desenvolvimento.
 - `eas.json`: perfis de build Android.
+- `.github/workflows/validate.yml`: verificações automáticas de dependências, TypeScript e Expo.
 
-## Estado da integração
+## Limitações atuais
 
-A estrutura de cliente e o SQL estão preparados no repositório, mas a conta Supabase conectada durante a configuração não tinha projetos disponíveis. Por isso, a migração ainda não foi aplicada nem validada em um banco ativo.
+- O MVP online implementa conversas diretas entre duas contas. Grupos reais, criação de salas, anexos, notificações e moderação ficam para próximas etapas.
+- A migração e as políticas do banco foram verificadas pelo conector Supabase, mas ainda não consegui executar o app em um dispositivo ou completar um teste real de duas contas.
+- O APK ainda não foi compilado; isso exige instalar dependências e executar o build EAS com uma conta Expo.
