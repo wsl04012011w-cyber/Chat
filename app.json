@@ -16,11 +16,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.chat.mobile"
-    },
-    "extra": {
-      "eas": {
-        "projectId": ""
-      }
     }
   }
 }
