@@ -1,6 +1,6 @@
 # Chat
 
-Aplicativo de conversas para Android, feito em React Native + Expo. A identidade visual usa tons de índigo e ameixa e não replica o tema de outro aplicativo.
+Aplicativo de conversas para Android, feito em React Native + Expo SDK 58. A identidade visual usa tons de índigo e ameixa e não replica o tema de outro aplicativo.
 
 ## O que já está no MVP
 
@@ -25,7 +25,8 @@ Aplicativo de conversas para Android, feito em React Native + Expo. A identidade
 1. Instale as dependências: `npm install`
 2. Copie o arquivo de exemplo para `.env`: `cp .env.example .env`
 3. Para experimentar apenas a interface, deixe os valores de Supabase como placeholders. O app abrirá em modo demonstração.
-4. Inicie o Expo: `npx expo start`
+4. Valide a compatibilidade das dependências Expo: `npx expo install --check`
+5. Inicie o Expo: `npx expo start`
 
 Escaneie o QR code com o Expo Go ou use o emulador Android.
 
