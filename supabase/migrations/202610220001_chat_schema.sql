@@ -155,6 +155,8 @@ begin
 end;
 $$;
 
+revoke all on function public.handle_new_chat_user() from public, anon, authenticated;
+
 drop trigger if exists on_auth_user_created_chat_profile on auth.users;
 create trigger on_auth_user_created_chat_profile
   after insert on auth.users
