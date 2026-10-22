@@ -22,33 +22,24 @@ Aplicativo de conversas para Android, feito em React Native + Expo. A identidade
 
 ## Rodar localmente
 
-1. Instale as dependências:
-
-   \`npm install\`
-
-2. Copie o arquivo de exemplo para \`.env\`:
-
-   \`cp .env.example .env\`
-
+1. Instale as dependências: `npm install`
+2. Copie o arquivo de exemplo para `.env`: `cp .env.example .env`
 3. Para experimentar apenas a interface, deixe os valores de Supabase como placeholders. O app abrirá em modo demonstração.
-
-4. Inicie o Expo:
-
-   \`npx expo start\`
+4. Inicie o Expo: `npx expo start`
 
 Escaneie o QR code com o Expo Go ou use o emulador Android.
 
 ## Conectar ao Supabase
 
 1. Crie um projeto no painel do Supabase.
-2. Abra **SQL Editor** e execute o conteúdo de \`supabase/migrations/202610220001_chat_schema.sql\`.
+2. Abra **SQL Editor** e execute o conteúdo de `supabase/migrations/202610220001_chat_schema.sql`.
 3. Em **Project Connect / API Keys**, copie a URL do projeto e a chave **Publishable**.
-4. Preencha o arquivo local \`.env\`:
+4. Preencha o arquivo local `.env`:
 
-   \`\`\`dotenv
+   ```dotenv
    EXPO_PUBLIC_SUPABASE_URL=https://SEU_PROJECT_REF.supabase.co
    EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_SUA_CHAVE
-   \`\`\`
+   ```
 
 5. Reinicie o Expo para carregar as variáveis e teste o cadastro com dois usuários diferentes.
 
@@ -58,23 +49,23 @@ Use somente a chave Publishable no app. **Nunca coloque chaves Secret ou service
 
 1. Entre na sua conta Expo e inicialize a ligação deste app ao EAS:
 
-   \`npx eas-cli@latest login\`
+   `npx eas-cli@latest login`
 
-   \`npx eas-cli@latest init\`
+   `npx eas-cli@latest init`
 
 2. Gere um APK de testes:
 
-   \`npx eas-cli@latest build --platform android --profile preview\`
+   `npx eas-cli@latest build --platform android --profile preview`
 
-O perfil \`preview\` em \`eas.json\` está configurado para produzir um APK de distribuição interna. O build precisa ser executado com uma conta EAS válida.
+O perfil `preview` em `eas.json` está configurado para produzir um APK de distribuição interna. O build precisa ser executado com uma conta EAS válida.
 
 ## Estrutura principal
 
-- \`App.tsx\`: telas, autenticação e fluxo de conversa.
-- \`lib/supabase.ts\`: criação segura do cliente Supabase para o app.
-- \`supabase/migrations/\`: estrutura do banco de dados e políticas RLS.
-- \`.env.example\`: nomes das variáveis necessárias, sem segredos.
-- \`eas.json\`: perfis de build Android.
+- `App.tsx`: telas, autenticação e fluxo de conversa.
+- `lib/supabase.ts`: criação do cliente Supabase para o app.
+- `supabase/migrations/`: estrutura do banco de dados e políticas RLS.
+- `.env.example`: nomes das variáveis necessárias, sem segredos.
+- `eas.json`: perfis de build Android.
 
 ## Estado da integração
 
